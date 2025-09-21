@@ -148,7 +148,52 @@ section {
   color: var(--neon-cyan);
   text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-cyan);
 }
+  
+section {
+  max-width: 1000px;
+  margin: 80px auto;
+  padding: 40px 30px;
+  border-radius: 20px;
+  position: relative;
+  background: rgba(20, 25, 45, 0.5);
+  box-shadow: 0 0 20px rgba(0,255,255,0.1);
+}
+section::before {
+  content: "";
+  position: absolute;
+  top: -2px; left: 20px; right: 20px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan));
+  opacity: 0.6;
+  border-radius: 5px;
+}
 
+.project-card {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.project-card:hover {
+  transform: translateY(-12px) rotate3d(1,1,0,6deg);
+  box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-pink);
+  border-color: var(--neon-cyan);
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  background: linear-gradient(90deg, #0a0f1a, #1b1f33);
+  border-top: 2px solid var(--neon-cyan);
+  box-shadow: 0 -5px 20px rgba(0,255,255,0.2);
+  font-size: 0.9rem;
+}
+footer a {
+  color: var(--neon-yellow);
+  margin: 0 10px;
+  text-decoration: none;
+}
+footer a:hover {
+  text-shadow: 0 0 10px var(--neon-pink);
+}
 
 
 </style>
