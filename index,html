@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mark Evans | Interchained</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<style>
+/* Global */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: linear-gradient(135deg, #0a0f1a, #1b1f33);
+  color: #fff;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 {
+  margin: 0 0 15px;
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.hero .hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.aka {
+  color: #fcd34d;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #fcd34d;
+  color: #000;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* Sections */
+section {
+  max-width: 900px;
+  margin: 80px auto;
+  padding: 20px;
+}
+
+/* Projects */
+.project-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.project-card {
+  transition: transform 0.3s ease;
+}
+.project-card:hover {
+  transform: translateY(-10px);
+}
+
+/* Contact */
+.contact .socials a {
+  color: #fcd34d;
+  text-decoration: none;
+}
+.contact .socials a:hover {
+  text-decoration: underline;
+}
+
+</style>
+<body>
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="hero-content glass">
+      <h1>Mark Evans <span class="aka">aka Interchained ⚡</span></h1>
+      <p>Blockchain Innovator • Builder • Community Leader</p>
+      <a href="#projects" class="btn">Explore My Work</a>
+    </div>
+    <canvas id="bgCanvas"></canvas>
+  </header>
+
+  <!-- About -->
+  <section class="about glass">
+    <h2>About Me</h2>
+    <p>
+      I’m Mark Evans, aka <strong>Interchained</strong>.  
+      Founder of <strong>Interchainedd</strong> and creator of <strong>Elara Wallet</strong>.  
+      Passionate about blockchain consensus, new emissions algorithms, governance models, and community building.  
+    </p>
+    <p><strong>Education:</strong> Valencia College — A.S. Computer Programming & Analysis.  
+      Experience in C++, PHP, Python, Solidity, and systems like ElectrumX, Redis, and Docker.</p>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="projects">
+    <h2>Projects</h2>
+    <div class="project-grid">
+      <div class="project-card glass">
+        <h3>Elara Wallet</h3>
+        <p>Secure mobile wallet for Interchained with 2FA withdrawals, modern UI, and Google Play availability.</p>
+      </div>
+      <div class="project-card glass">
+        <h3>Interchainedd</h3>
+        <p>Bitcoin-based fork with Yespower Proof-of-Work, DGW-Nova difficulty, ITSL tokens, and governance models.</p>
+      </div>
+      <div class="project-card glass">
+        <h3>Community & Governance</h3>
+        <p>Built a global ambassador program with 270+ contributors. Designing smarter governance and reward systems for blockchain ecosystems.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact glass">
+    <h2>Contact</h2>
+    <p>Let’s build the future together.</p>
+    <a href="mailto:mark.evans@email.com" class="btn">Email Me</a>
+    <div class="socials">
+      <a href="#">GitHub</a> | <a href="#">LinkedIn</a> | <a href="#">Twitter</a>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    // GSAP Animations
+    gsap.from(".hero-content h1", { y: -50, opacity: 0, duration: 1 });
+    gsap.from(".hero-content p", { y: 20, opacity: 0, duration: 1, delay: 0.5 });
+    gsap.from(".btn", { scale: 0, opacity: 0, duration: 1, delay: 1 });
+    
+    // Scroll animations
+    gsap.utils.toArray("section").forEach((section, i) => {
+      gsap.from(section, {
+        scrollTrigger: {
+          trigger: section,
+          start: "top 80%",
+        },
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        delay: i * 0.2
+      });
+    });
+    
+    // Background Canvas (floating cubes placeholder)
+    const canvas = document.getElementById("bgCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    let cubes = Array.from({ length: 40 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: Math.random() * 6 + 2,
+      dx: (Math.random() - 0.5) * 1,
+      dy: (Math.random() - 0.5) * 1,
+    }));
+    
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      cubes.forEach(cube => {
+        ctx.fillStyle = "rgba(255,255,255,0.6)";
+        ctx.fillRect(cube.x, cube.y, cube.size, cube.size);
+        cube.x += cube.dx;
+        cube.y += cube.dy;
+    
+        if (cube.x < 0 || cube.x > canvas.width) cube.dx *= -1;
+        if (cube.y < 0 || cube.y > canvas.height) cube.dy *= -1;
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>
