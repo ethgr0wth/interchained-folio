@@ -300,6 +300,29 @@ footer a:hover {
     });
   });
 
+  gsap.utils.toArray(".project-card").forEach((card, i) => {
+  gsap.from(card, {
+    scrollTrigger: {
+        trigger: card,
+        start: "top 85%",
+      },
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      delay: i * 0.2,
+      ease: "power3.out"
+    });
+  });
+  
+  gsap.from("footer", {
+    scrollTrigger: { trigger: "footer", start: "top 90%" },
+    opacity: 0,
+    y: 40,
+    duration: 1.5,
+    ease: "elastic.out(1, 0.5)"
+  });
+  
+
   // Cyberpunk Hash Rain Background
   const canvas = document.getElementById("bgCanvas");
   const ctx = canvas.getContext("2d");
