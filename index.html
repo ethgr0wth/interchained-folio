@@ -195,6 +195,19 @@ footer a:hover {
   text-shadow: 0 0 10px var(--neon-pink);
 }
 
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: linear-gradient(90deg, var(--neon-pink), var(--neon-yellow));
+  color: #111;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+  opacity: 1 !important;       /* stay visible */
+  visibility: visible !important; 
+  transform: scale(1);          /* avoid collapse */
+}
 
 </style>
 <body>
@@ -270,13 +283,16 @@ footer a:hover {
     delay: 0.5, 
     ease: "power2.out" 
   });
+  // Explore My Work button
   gsap.from(".btn", { 
     scale: 0.3, 
     opacity: 0, 
     duration: 1, 
     delay: 1, 
-    ease: "elastic.out(1, 0.5)" 
+    ease: "elastic.out(1, 0.5)",
+    onStart: () => document.querySelectorAll(".btn").forEach(btn => btn.style.visibility = "visible")
   });
+
   
   // Neon pulse loop
   gsap.to(".btn", { 
