@@ -4,408 +4,247 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mark Evans | Interchained</title>
-  <link rel="stylesheet" href="style.css">
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #0a0f1a, #1b1f33);
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  /* Neon palette */
+  :root {
+    --neon-yellow: #fcd34d;
+    --neon-pink: #ff2d95;
+    --neon-cyan: #0ff;
+  }
+
+  /* Glass effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+  }
+  .hero canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+  }
+  .aka { color: var(--neon-yellow); }
+
+  /* Buttons */
+  .btn-neon {
+    padding: 14px 28px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 10px;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-yellow));
+    color: #111;
+    border: none;
+    box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-yellow);
+    transition: all 0.3s ease;
+  }
+  .btn-neon:hover {
+    background: var(--neon-cyan);
+    color: #000;
+    box-shadow: 0 0 15px var(--neon-cyan), 0 0 30px var(--neon-pink);
+  }
+
+  /* Section headers */
+  section {
+    margin: 80px auto;
+    padding: 40px 30px;
+    border-radius: 20px;
+    background: rgba(20, 25, 45, 0.5);
+    box-shadow: 0 0 20px rgba(0,255,255,0.1);
+    position: relative;
+  }
+  section::before {
+    content: "";
+    position: absolute;
+    top: -2px; left: 20px; right: 20px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan));
+    opacity: 0.6;
+    border-radius: 5px;
+  }
+
+  /* Project cards */
+  .project-card {
+    background: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 16px;
+    min-height: 200px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .project-card:hover {
+    transform: translateY(-12px) rotate3d(1,1,0,6deg);
+    box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-pink);
+    border-color: var(--neon-cyan);
+  }
+  .project-card a {
+    color: var(--neon-cyan);
+    font-weight: bold;
+    text-decoration: none;
+  }
+  .project-card a:hover {
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-cyan);
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: 60px;
+    background: rgba(20,25,45,0.7);
+    border-top: 2px solid var(--neon-cyan);
+    box-shadow: 0 -5px 20px rgba(0,255,255,0.3);
+  }
+  footer a {
+    color: var(--neon-yellow);
+    margin: 0 12px;
+    text-decoration: none;
+  }
+  footer a:hover {
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px var(--neon-cyan);
+  }
+  .btn {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  </style>
 </head>
-<style>
-/* Global */
-body {
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  background: linear-gradient(135deg, #0a0f1a, #1b1f33);
-  color: #fff;
-  overflow-x: hidden;
-}
-
-h1, h2, h3 {
-  margin: 0 0 15px;
-}
-
-/* Glass effect */
-.glass {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-}
-
-/* Hero */
-.hero {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  text-align: center;
-}
-
-.hero .hero-content {
-  position: relative;
-  z-index: 2;
-}
-
-.hero canvas {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
-.aka {
-  color: #fcd34d;
-}
-
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  background: #fcd34d;
-  color: #000;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: 0.3s;
-}
-.btn:hover {
-  background: #fff;
-  color: #000;
-}
-
-/* Sections */
-section {
-  max-width: 900px;
-  margin: 80px auto;
-  padding: 20px;
-}
-
-/* Projects */
-.project-grid {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-}
-
-.project-card {
-  transition: transform 0.3s ease;
-}
-.project-card:hover {
-  transform: translateY(-10px);
-}
-
-/* Contact */
-.contact .socials a {
-  color: #fcd34d;
-  text-decoration: none;
-}
-.contact .socials a:hover {
-  text-decoration: underline;
-}
-  /* Neon cyberpunk colors */
-:root {
-  --neon-yellow: #fcd34d;
-  --neon-pink: #ff2d95;
-  --neon-cyan: #0ff;
-}
-
-/* Neon glow text */
-.neon {
-  text-shadow: 0 0 5px var(--neon-yellow), 0 0 10px var(--neon-yellow), 0 0 20px var(--neon-yellow);
-}
-
-/* Glitch effect */
-.glitch {
-  position: relative;
-  display: inline-block;
-  animation: glitch 2s infinite;
-}
-@keyframes glitch {
-  0% { text-shadow: 2px 0 var(--neon-pink), -2px 0 var(--neon-cyan); }
-  20% { text-shadow: -2px -2px var(--neon-cyan), 2px 2px var(--neon-pink); }
-  40% { text-shadow: 2px 2px var(--neon-pink), -2px -2px var(--neon-cyan); }
-  60%, 100% { text-shadow: 0 0 5px var(--neon-yellow); }
-}
-
-/* Project hover neon */
-.project-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-pink);
-}
-
-/* Cyberpunk button */
-.btn {
-  background: linear-gradient(90deg, var(--neon-pink), var(--neon-yellow));
-  color: #111;
-  border: none;
-  box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-yellow);
-}
-.btn:hover {
-  background: var(--neon-cyan);
-  color: #000;
-  box-shadow: 0 0 15px var(--neon-cyan), 0 0 30px var(--neon-pink);
-}
-
-.glitch {
-  color: var(--neon-cyan);
-  text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-cyan);
-}
-  
-section {
-  max-width: 1000px;
-  margin: 80px auto;
-  padding: 40px 30px;
-  border-radius: 20px;
-  position: relative;
-  background: rgba(20, 25, 45, 0.5);
-  box-shadow: 0 0 20px rgba(0,255,255,0.1);
-}
-section::before {
-  content: "";
-  position: absolute;
-  top: -2px; left: 20px; right: 20px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan));
-  opacity: 0.6;
-  border-radius: 5px;
-}
-
-.project-card {
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  border: 1px solid rgba(255,255,255,0.1);
-}
-.project-card:hover {
-  transform: translateY(-12px) rotate3d(1,1,0,6deg);
-  box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-pink);
-  border-color: var(--neon-cyan);
-}
-
-footer {
-  text-align: center;
-  padding: 30px;
-  background: linear-gradient(90deg, #0a0f1a, #1b1f33);
-  border-top: 2px solid var(--neon-cyan);
-  box-shadow: 0 -5px 20px rgba(0,255,255,0.2);
-  font-size: 0.9rem;
-}
-footer a {
-  color: var(--neon-yellow);
-  margin: 0 10px;
-  text-decoration: none;
-}
-footer a:hover {
-  text-shadow: 0 0 10px var(--neon-pink);
-}
-
-.btn {
-  display: inline-block;
-  padding: 14px 28px;        /* bigger hit area */
-  font-size: 1.1rem;         /* readable size */
-  font-weight: bold;
-  border-radius: 10px;
-  background: linear-gradient(90deg, var(--neon-pink), var(--neon-yellow));
-  color: #111;
-  border: none;
-  text-decoration: none;
-  cursor: pointer;
-  opacity: 1 !important;
-  visibility: visible !important;
-  transform: scale(1) !important;   /* reset GSAP scaling bug */
-  transition: all 0.3s ease;
-}
-
-.project-grid {
-  display: grid;
-  gap: 30px;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  align-items: stretch;       /* keeps cards same height */
-}
-
-.project-card {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 20px;
-  border-radius: 16px;
-  min-height: 180px;          /* consistent sizing */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.projects h2 {
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid transparent;
-  border-image: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan)) 1;
-}
-
-
-</style>
 <body>
-  <!-- Hero Section -->
+  <!-- Hero -->
   <header class="hero">
     <div class="hero-content glass">
       <h1>Mark Evans <span class="aka">aka Interchained ⚡</span></h1>
-      <p>Blockchain Innovator • Builder • Community Leader</p>
-      <a href="#projects" class="btn">Explore My Work</a>
+      <p class="mb-4">Blockchain Innovator • Builder • Community Leader</p>
+      <br>
+      <a href="#projects" class="btn btn-neon btn-hero">Explore My Work</a>
     </div>
     <canvas id="bgCanvas"></canvas>
   </header>
 
   <!-- About -->
-  <section class="about glass">
+  <section class="glass container">
     <h2>About Me</h2>
-    <p>
-      I’m Mark Evans, aka <strong>Interchained</strong>.  
-      Co-founder of <strong>Interchained (ITC)</strong> and co-creator of <strong>Elara Wallet</strong>.  
-      Passionate about blockchain consensus, new emissions algorithms, governance models, and community building.  
-    </p>
-    <p><strong>Education:</strong> Valencia College — A.S. Computer Programming & Analysis.  
-      Experience in C++, PHP, Python, Solidity, and systems like ElectrumX, Redis, Docker and experienced with many programming frameworks & languages.</p>
+    <p>I’m Mark Evans, aka <strong>Interchained</strong>. Co-founder of <strong>Interchained (ITC)</strong> and co-creator of <strong>Elara Wallet</strong>. Passionate about blockchain consensus, new emissions algorithms, governance models, and community building.</p>
+    <p><strong>Education:</strong> Valencia College — A.S. Computer Programming & Analysis. Experience in C++, PHP, Python, Solidity, and systems like ElectrumX, Redis, Docker and many programming frameworks & languages.</p>
   </section>
 
   <!-- Projects -->
-  <section id="projects" class="projects">
-    <h2>Projects</h2>
-    <div class="project-grid">
-      <div class="project-card glass">
-        <h3>Elara Wallet</h3>
-        <a href="https://elarawallet.com" >Link</a>
-        <p>Secure mobile wallet for Interchained with 2FA withdrawals, modern UI, and Google Play availability.</p>
+  <section id="projects" class="container">
+    <h2 class="mb-4">Projects</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="project-card h-100">
+          <h3>Elara Wallet</h3>
+          <a href="https://elarawallet.com">Website</a>   |   <a href="https://github.com/ethgr0wth/bluewallet-itc">Github</a>
+          <p>Secure mobile wallet for Interchained with 2FA withdrawals, modern UI, and Google Play availability.</p>
+        </div>
       </div>
-      <div class="project-card glass">
-        <h3>Interchainedd</h3>
-        <a href="https://interchained.org" >Link</a>
-        <p>Bitcoin-based fork with Yespower Proof-of-Work, DGW-Nova difficulty, ITSL tokens, and decentralized governance models.</p>
+      <div class="col-md-4">
+        <div class="project-card h-100">
+          <h3>Interchained (ITC)</h3>
+          <a href="https://interchained.org">Website</a>   |   <a href="https://github.com/interchained/interchained">Github</a>
+          <p>Bitcoin-based fork with Yespower Proof-of-Work, DGW-Nova difficulty, ITSL tokens, and decentralized governance models.</p>
+        </div>
       </div>
-      <div class="project-card glass">
-        <h3>Community & Governance</h3>
-        <a href="https://gov.interchained.org" >Link</a>
-        <p>Built a global ambassador program with 300+ contributors. Designing smarter governance and reward systems for blockchain ecosystems and decentralized commuinity projects.</p>
+      <div class="col-md-4">
+        <div class="project-card h-100">
+          <h3>Community & Governance</h3>
+          <a href="https://gov.interchained.org">Website</a>   |   <a href="https://elarawallet.com/ambassadors">Apply</a>
+          <p>Built a global ambassador program with 300+ contributors. Designing smarter governance and reward systems for blockchain ecosystems and decentralized projects.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact -->
-  <section class="contact glass">
+  <!-- Footer -->
+  <footer>
     <h2>Contact</h2>
     <p>Let’s build the future together.</p>
-    <a href="mailto:interchained@email.com" class="btn">Email Me</a>
-    <div class="socials">
-      <a href="https://github.com/interchained/interchained">GitHub</a> | <a href="https://linkedin.com/in/globalvapor">LinkedIn</a> | <a href="https://x.com/interchained">Twitter</a>
-    </div>
-  </section>
+    <a href="mailto:interchained@email.com" class="btn btn-neon">Email Me</a>
+    <p class="mt-3">
+      <a href="https://github.com/interchained/interchained">GitHub</a> |
+      <a href="https://linkedin.com/in/globalvapor">LinkedIn</a> |
+      <a href="https://x.com/interchained">Twitter</a>
+    </p>
+    <p class="mt-3">© 2025 Mark Evans aka Interchained ⚡ — All Rights Reserved</p>
+  </footer>
 
+  <!-- Bootstrap + GSAP -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script>
-  // Hero neon intro
-  gsap.from(".hero-content h1", { 
-    y: -80, 
-    opacity: 0, 
-    duration: 1.5, 
-    ease: "power4.out", 
-    filter: "blur(8px)" 
-  });
-  gsap.from(".hero-content p", { 
-    y: 40, 
-    opacity: 0, 
-    duration: 1.2, 
-    delay: 0.5, 
-    ease: "power2.out" 
-  });
-  // Explore My Work button
-  gsap.from(".btn", { 
+
+  <script>
+  // Hero animations
+  gsap.from(".hero-content h1", { y: -80, opacity: 0, duration: 1.5, ease: "power4.out", filter: "blur(8px)" });
+  gsap.from(".hero-content p", { y: 40, opacity: 0, duration: 1.2, delay: 0.5, ease: "power2.out" });
+    gsap.from(".btn-hero", { 
     scale: 0.8, 
     opacity: 0, 
     duration: 1, 
     delay: 1, 
-    ease: "elastic.out(1, 0.5)",
-    onStart: () => document.querySelectorAll(".btn").forEach(btn => btn.style.visibility = "visible")
-  });
-
-  
-  // Neon pulse loop
-  gsap.to(".btn", { 
-    boxShadow: "0 0 20px #ff2d95, 0 0 40px #0ff", 
-    repeat: -1, 
-    yoyo: true, 
-    duration: 1.5 
-  });
-
-  // Scroll animations
-  gsap.utils.toArray("section").forEach((section, i) => {
-    gsap.from(section, {
-      scrollTrigger: {
-        trigger: section,
-        start: "top 80%",
-      },
-      opacity: 0,
-      y: 50,
-      duration: 1,
-      delay: i * 0.2
+    ease: "elastic.out(1,0.5)" 
     });
-  });
 
-  gsap.utils.toArray(".project-card").forEach((card, i) => {
-  gsap.from(card, {
-    scrollTrigger: {
-        trigger: card,
-        start: "top 85%",
-      },
-      opacity: 0,
-      y: 50,
-      duration: 1,
-      delay: i * 0.2,
-      ease: "power3.out"
-    });
-  });
-  
-  gsap.from("footer", {
-    scrollTrigger: { trigger: "footer", start: "top 90%" },
-    opacity: 0,
-    y: 40,
-    duration: 1.5,
-    ease: "elastic.out(1, 0.5)"
-  });
-  
-
-  // Cyberpunk Hash Rain Background
+  // Background cyberpunk rain
   const canvas = document.getElementById("bgCanvas");
   const ctx = canvas.getContext("2d");
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  const letters = "01ITC⚡";
+  const letters = "0xITC⚡";
   const fontSize = 16;
   const columns = canvas.width / fontSize;
-
-  let drops = [];
-  for (let x = 0; x < columns; x++) drops[x] = 1;
+  let drops = Array.from({ length: columns }).fill(1);
 
   function draw() {
-    ctx.fillStyle = "rgba(10, 15, 26, 0.08)"; // trail effect
+    ctx.fillStyle = "rgba(10, 15, 26, 0.08)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    ctx.fillStyle = "#0ff"; // neon cyan
+    ctx.fillStyle = "#0ff";
     ctx.font = fontSize + "px monospace";
-
-    for (let i = 0; i < drops.length; i++) {
+    drops.forEach((y, x) => {
       const text = letters[Math.floor(Math.random() * letters.length)];
-      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-        drops[i] = 0;
-      }
-      drops[i]++;
-    }
+      ctx.fillText(text, x * fontSize, y * fontSize);
+      if (y * fontSize > canvas.height && Math.random() > 0.975) drops[x] = 0;
+      drops[x]++;
+    });
   }
   setInterval(draw, 50);
 
-  // Resize canvas on window resize
   window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   });
-</script>
-
+  </script>
 </body>
 </html>
