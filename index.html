@@ -159,8 +159,15 @@ section {
     // GSAP Animations
     gsap.from(".hero-content h1", { y: -50, opacity: 0, duration: 1 });
     gsap.from(".hero-content p", { y: 20, opacity: 0, duration: 1, delay: 0.5 });
-    gsap.from(".btn", { scale: 0, opacity: 0, duration: 1, delay: 1 });
-    
+    gsap.from(".btn", { 
+      scale: 0.5, 
+      opacity: 0, 
+      duration: 1, 
+      delay: 1, 
+      ease: "back.out(1.7)",
+      transformOrigin: "center center"
+    });
+        
     // Scroll animations
     gsap.utils.toArray("section").forEach((section, i) => {
       gsap.from(section, {
