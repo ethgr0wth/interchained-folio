@@ -3,263 +3,343 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mark Evans | Interchained</title>
+  <title>Mark Evans | Portfolio</title>
 
-  <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<audio id="bg-music" autoplay loop>
-  <source src="teddy-swap-2.mp3" type="audio/mpeg">
-</audio>
 
-<script>
-  window.addEventListener("load", () => {
-    const music = document.getElementById("bg-music");
-    music.volume = 0.5; // adjust volume
-    music.play().catch(err => {
-      console.log("Autoplay blocked, waiting for user gesture.");
-      document.body.addEventListener("click", () => {
-        music.play();
-      }, { once: true });
-    });
-  });
-</script>
   <style>
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    background: linear-gradient(135deg, #0a0f1a, #1b1f33);
-    color: #fff;
-    overflow-x: hidden;
-  }
+    :root{
+      --bg1:#0a0f1a;
+      --bg2:#121a2c;
+      --card:rgba(255,255,255,.06);
+      --border:rgba(255,255,255,.12);
+      --text:#e8eefc;
+      --muted:rgba(232,238,252,.72);
+      --neon1:#ff2d95;
+      --neon2:#0ff;
+      --neon3:#fcd34d;
+    }
 
-  /* Neon palette */
-  :root {
-    --neon-yellow: #fcd34d;
-    --neon-pink: #ff2d95;
-    --neon-cyan: #0ff;
-  }
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+      background: radial-gradient(1200px 800px at 20% 10%, rgba(0,255,255,.12), transparent 60%),
+                  radial-gradient(900px 700px at 90% 20%, rgba(255,45,149,.10), transparent 55%),
+                  linear-gradient(135deg, var(--bg1), var(--bg2));
+      color:var(--text);
+      overflow-x:hidden;
+    }
 
-  /* Glass effect */
-  .glass {
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(10px);
-    border-radius: 16px;
-    padding: 2rem;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-  }
+    .nav-blur{
+      background:rgba(10,15,26,.55);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--border);
+    }
 
-  /* Hero */
-  .hero {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    text-align: center;
-  }
-  .hero-content {
-    position: relative;
-    z-index: 2;
-  }
-  .hero canvas {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 1;
-  }
-  .aka { color: var(--neon-yellow); }
+    .container-narrow{ max-width: 980px; }
 
-  /* Buttons */
-  .btn-neon {
-    padding: 14px 28px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    border-radius: 10px;
-    background: linear-gradient(90deg, var(--neon-pink), var(--neon-yellow));
-    color: #111;
-    border: none;
-    box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-yellow);
-    transition: all 0.3s ease;
-  }
-  .btn-neon:hover {
-    background: var(--neon-cyan);
-    color: #000;
-    box-shadow: 0 0 15px var(--neon-cyan), 0 0 30px var(--neon-pink);
-  }
+    .card-glass{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:18px;
+      box-shadow: 0 12px 38px rgba(0,0,0,.35);
+    }
 
-  /* Section headers */
-  section {
-    margin: 80px auto;
-    padding: 40px 30px;
-    border-radius: 20px;
-    background: rgba(20, 25, 45, 0.5);
-    box-shadow: 0 0 20px rgba(0,255,255,0.1);
-    position: relative;
-  }
-  section::before {
-    content: "";
-    position: absolute;
-    top: -2px; left: 20px; right: 20px;
-    height: 2px;
-    background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan));
-    opacity: 0.6;
-    border-radius: 5px;
-  }
+    .chip{
+      display:inline-block;
+      padding:.35rem .6rem;
+      border-radius:999px;
+      border:1px solid var(--border);
+      color:var(--muted);
+      font-size:.85rem;
+      margin:.2rem .25rem .25rem 0;
+      background: rgba(255,255,255,.04);
+    }
 
-  /* Project cards */
-  .project-card {
-    background: rgba(255,255,255,0.05);
-    padding: 20px;
-    border-radius: 16px;
-    min-height: 200px;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-    border: 1px solid rgba(255,255,255,0.1);
-  }
-  .project-card:hover {
-    transform: translateY(-12px) rotate3d(1,1,0,6deg);
-    box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-pink);
-    border-color: var(--neon-cyan);
-  }
-  .project-card a {
-    color: var(--neon-cyan);
-    font-weight: bold;
-    text-decoration: none;
-  }
-  .project-card a:hover {
-    color: var(--neon-pink);
-    text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-cyan);
-  }
+    .btn-neon{
+      border:0;
+      color:#081018;
+      font-weight:700;
+      border-radius:12px;
+      padding:.7rem 1rem;
+      background: linear-gradient(90deg, var(--neon1), var(--neon3));
+      box-shadow: 0 0 12px rgba(255,45,149,.35), 0 0 18px rgba(252,211,77,.20);
+      transition: transform .15s ease, box-shadow .2s ease;
+    }
+    .btn-neon:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 0 16px rgba(0,255,255,.28), 0 0 26px rgba(255,45,149,.20);
+      background: linear-gradient(90deg, var(--neon2), var(--neon1));
+    }
 
-  /* Footer */
-  footer {
-    text-align: center;
-    padding: 40px 20px;
-    margin-top: 60px;
-    background: rgba(20,25,45,0.7);
-    border-top: 2px solid var(--neon-cyan);
-    box-shadow: 0 -5px 20px rgba(0,255,255,0.3);
-  }
-  footer a {
-    color: var(--neon-yellow);
-    margin: 0 12px;
-    text-decoration: none;
-  }
-  footer a:hover {
-    color: var(--neon-pink);
-    text-shadow: 0 0 10px var(--neon-cyan);
-  }
-  .btn {
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
+    .btn-outline-soft{
+      border:1px solid var(--border);
+      color:var(--text);
+      border-radius:12px;
+      padding:.7rem 1rem;
+      background: rgba(255,255,255,.03);
+    }
+    .btn-outline-soft:hover{
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+    }
 
+    h1{ font-weight:800; letter-spacing:-.02em; }
+    .muted{ color:var(--muted); }
+
+    .section-title{
+      font-weight:800;
+      letter-spacing:-.01em;
+      margin-bottom: .75rem;
+    }
+
+    a{ color: var(--neon2); text-decoration:none; }
+    a:hover{ color: var(--neon1); }
+
+    .project-card:hover{
+      border-color: rgba(0,255,255,.35);
+      box-shadow: 0 0 18px rgba(0,255,255,.12), 0 0 32px rgba(255,45,149,.08);
+      transform: translateY(-2px);
+    }
+    .project-card{
+      transition: .2s ease;
+    }
   </style>
 </head>
+
 <body>
-  <!-- Hero -->
-  <header class="hero">
-    <div class="hero-content glass">
-      <h1>Mark Evans <span class="aka">aka Interchained ⚡</span></h1>
-      <p class="mb-4">Blockchain Innovator • Builder • Community Leader</p>
-      <br>
-      <a href="#projects" class="btn btn-neon btn-hero">Explore My Work</a>
+  <!-- Top Nav -->
+  <nav class="navbar navbar-expand nav-blur sticky-top">
+    <div class="container container-narrow">
+      <span class="navbar-brand text-white fw-bold">Mark Evans</span>
+      <div class="ms-auto d-flex gap-2">
+        <a class="btn btn-outline-soft" href="#projects">Projects</a>
+        <a class="btn btn-outline-soft" href="#skills">Skills</a>
+        <a class="btn btn-outline-soft" href="#contact">Contact</a>
+      </div>
     </div>
-    <canvas id="bgCanvas"></canvas>
+  </nav>
+
+  <!-- Hero -->
+  <header class="py-5">
+    <div class="container container-narrow">
+      <div class="p-4 p-md-5 card-glass">
+        <div class="row align-items-center g-4">
+          <div class="col-md-8">
+            <h1 class="mb-2">Mark Evans</h1>
+            <div class="muted mb-3">
+              Systems Architecture • Full-Stack Development • Student (Computer Programming & Analysis)
+            </div>
+            <p class="mb-4">
+              I build secure, scalable systems—APIs, dashboards, and automation tools.
+              I focus on clean architecture, data integrity, and real-world deployment.
+            </p>
+            <div class="d-flex flex-wrap gap-2">
+              <a class="btn btn-neon" href="#projects">View Featured Platforms</a>
+              <a class="btn btn-outline-soft" href="https://linkedin.com/in/globalvapor" target="_blank" rel="noreferrer">LinkedIn</a>
+              <a class="btn btn-outline-soft" href="https://github.com/interchained" target="_blank" rel="noreferrer">GitHub</a>
+              <!-- Optional: add resume.pdf in your folder -->
+              <!-- <a class="btn btn-outline-soft" href="resume.pdf" target="_blank" rel="noreferrer">Resume (PDF)</a> -->
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 card-glass">
+              <div class="fw-bold mb-2">Quick Snapshot</div>
+              <div class="muted small">Focus</div>
+              <div class="mb-3">Backend APIs • Databases • Systems integration</div>
+              <div class="muted small">Current Interest</div>
+              <div class="mb-3">Security best practices • Cloud fundamentals</div>
+              <div class="muted small">Location</div>
+              <div>Florida, USA</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </header>
 
-  <!-- About -->
-  <section class="glass container">
-    <h2>About Me</h2>
-    <p>I’m Mark Evans, aka <strong>Interchained</strong>. Co-founder of <strong>Interchained (ITC)</strong> and co-creator of <strong>Elara Wallet</strong>. Passionate about blockchain consensus, new emissions algorithms, governance models, and community building.</p>
-    <p><strong>Education:</strong> Valencia College — A.S. Computer Programming & Analysis. Experience in C++, PHP, Python, Solidity, and systems like ElectrumX, Redis, Docker and many programming frameworks & languages.</p>
-  </section>
-
   <!-- Projects -->
-  <section id="projects" class="container">
-    <h2 class="mb-4">Projects</h2>
-    <div class="row g-4">
-      <div class="col-md-4">
-        <div class="project-card h-100">
-          <h3>Elara Wallet</h3>
-          <a href="https://elarawallet.com">Website</a>   |   <a href="https://github.com/ethgr0wth/bluewallet-itc">Github</a>
-          <p>Secure mobile wallet for Interchained with 2FA withdrawals, modern UI, and Google Play availability.</p>
+  <!-- Projects -->
+<section id="projects" class="py-4">
+  <div class="container container-narrow">
+    <h2 class="section-title">Featured Platforms</h2>
+    <p class="muted mb-4">
+      Production systems and products I’ve built across blockchain infrastructure, AI orchestration, and developer platforms.
+    </p>
+
+    <div class="row g-3">
+
+      <!-- Interchained.org -->
+      <div class="col-md-6">
+        <div class="p-4 card-glass project-card h-100">
+          <div class="d-flex justify-content-between align-items-start">
+            <h3 class="h5 mb-1">Interchained</h3>
+            <span class="chip">Layer-1</span>
+          </div>
+          <div class="muted mb-2">Blockchain infrastructure + ecosystem</div>
+          <div class="mb-3">
+            Built and maintained a production blockchain stack, including node infrastructure, governance tooling,
+            and public ecosystem documentation.
+          </div>
+          <div class="mb-3">
+            <span class="chip">C++</span><span class="chip">Linux</span><span class="chip">Networking</span><span class="chip">RPC</span>
+          </div>
+          <div class="d-flex gap-3">
+            <a href="https://interchained.org" target="_blank" rel="noreferrer">Live</a>
+            <a href="https://github.com/interchained/interchained" target="_blank" rel="noreferrer">Code</a>
+          </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="project-card h-100">
-          <h3>Interchained (ITC)</h3>
-          <a href="https://interchained.org">Website</a>   |   <a href="https://github.com/interchained/interchained">Github</a>
-          <p>Bitcoin-based fork with Yespower Proof-of-Work, DGW-Nova difficulty, ITSL tokens, and decentralized governance models.</p>
+
+      <!-- DevNet -->
+      <div class="col-md-6">
+        <div class="p-4 card-glass project-card h-100">
+          <div class="d-flex justify-content-between align-items-start">
+            <h3 class="h5 mb-1">DevNet</h3>
+            <span class="chip">Community</span>
+          </div>
+          <div class="muted mb-2">Builder network + technical visibility</div>
+          <div class="mb-3">
+            A public-facing hub designed to help builders share progress, ship in public, and grow visibility through community engagement.
+          </div>
+          <div class="mb-3">
+            <span class="chip">Web</span><span class="chip">Auth</span><span class="chip">Content</span><span class="chip">Moderation</span>
+          </div>
+          <div class="d-flex gap-3">
+            <a href="https://devnet.interchained.org" target="_blank" rel="noreferrer">Live</a>
+          </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="project-card h-100">
-          <h3>Community & Governance</h3>
-          <a href="https://gov.interchained.org">Website</a>   |   <a href="https://elarawallet.com/ambassadors">Apply</a>
-          <p>Built a global ambassador program with 300+ contributors. Designing smarter governance and reward systems for blockchain ecosystems and decentralized projects.</p>
+
+      <!-- AiAssist.net -->
+      <div class="col-md-6">
+        <div class="p-4 card-glass project-card h-100">
+          <div class="d-flex justify-content-between align-items-start">
+            <h3 class="h5 mb-1">AiAssist.net</h3>
+            <span class="chip">AI Platform</span>
+          </div>
+          <div class="muted mb-2">Unified AI tooling + subscriptions</div>
+          <div class="mb-3">
+            A central platform for AI features, user access, and product packaging—designed to connect multiple AI utilities into one experience.
+          </div>
+          <div class="mb-3">
+            <span class="chip">APIs</span><span class="chip">Multi-tenant</span><span class="chip">Billing</span><span class="chip">Security</span>
+          </div>
+          <div class="d-flex gap-3">
+            <a href="https://aiassist.net" target="_blank" rel="noreferrer">Live</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- AiAssist Secure -->
+      <div class="col-md-6">
+        <div class="p-4 card-glass project-card h-100">
+          <div class="d-flex justify-content-between align-items-start">
+            <h3 class="h5 mb-1">AiAssist Secure (AiAS)</h3>
+            <span class="chip">Security</span>
+          </div>
+          <div class="muted mb-2">Secure-by-default AI integration hub</div>
+          <div class="mb-3">
+            A secure platform that centralizes authentication, API keys, and orchestration—built to support safe integrations,
+            controlled access, and scalable multi-tenant usage.
+          </div>
+          <div class="mb-3">
+            <span class="chip">Auth</span><span class="chip">API Keys</span><span class="chip">Tenant Isolation</span><span class="chip">RBAC</span>
+          </div>
+          <div class="d-flex gap-3">
+            <a href="https://aiassistsecure.com" target="_blank" rel="noreferrer">Live</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Malachi -->
+      <div class="col-md-6">
+        <div class="p-4 card-glass project-card h-100">
+          <div class="d-flex justify-content-between align-items-start">
+            <h3 class="h5 mb-1">Malachi Agent</h3>
+            <span class="chip">Agent</span>
+          </div>
+          <div class="muted mb-2">AI agent interface + workflows</div>
+          <div class="mb-3">
+            An AI agent experience built on top of AiAS that helps users execute tasks and workflows through guided prompts,
+            tool usage, and automation patterns.
+          </div>
+          <div class="mb-3">
+            <span class="chip">Agents</span><span class="chip">Tools</span><span class="chip">Workflows</span><span class="chip">UX</span>
+          </div>
+          <div class="d-flex gap-3">
+            <a href="https://malachi.aiassist.net" target="_blank" rel="noreferrer">Live</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Concepts / Architecture -->
+      <div class="col-md-6">
+        <div class="p-4 card-glass project-card h-100">
+          <div class="d-flex justify-content-between align-items-start">
+            <h3 class="h5 mb-1">Core Concepts</h3>
+            <span class="chip">Architecture</span>
+          </div>
+          <div class="muted mb-2">How I build and scale systems</div>
+          <div class="mb-3">
+            Focus areas: multi-tenant architecture, secure auth flows, API-first design, observability, and reliable deployment patterns
+            for real production environments.
+          </div>
+          <div class="mb-3">
+            <span class="chip">System Design</span><span class="chip">Security</span><span class="chip">Scaling</span><span class="chip">Reliability</span>
+          </div>
+          <div class="d-flex gap-3">
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+  <!-- Skills -->
+  <section id="skills" class="py-5">
+    <div class="container container-narrow">
+      <h2 class="section-title">Skills</h2>
+      <div class="p-4 card-glass">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="fw-bold mb-2">Languages</div>
+            <div class="chip">C++</div><div class="chip">PHP</div><div class="chip">Python</div><div class="chip">JavaScript</div><div class="chip">Solidity</div>
+          </div>
+          <div class="col-md-4">
+            <div class="fw-bold mb-2">Tools</div>
+            <div class="chip">Git/GitHub</div><div class="chip">MySQL</div><div class="chip">Redis</div><div class="chip">Docker</div><div class="chip">Linux</div>
+          </div>
+          <div class="col-md-4">
+            <div class="fw-bold mb-2">Concepts</div>
+            <div class="chip">REST APIs</div><div class="chip">Auth</div><div class="chip">System design</div><div class="chip">Security basics</div><div class="chip">Deployment</div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer>
-    <h2>Contact</h2>
-    <p>Let’s build the future together.</p>
-    <a href="mailto:interchained@email.com" class="btn btn-neon">Email Me</a>
-    <p class="mt-3">
-      <a href="https://github.com/interchained/interchained">GitHub</a> |
-      <a href="https://linkedin.com/in/globalvapor">LinkedIn</a> |
-      <a href="https://x.com/interchained">Twitter</a>
-    </p>
-    <p class="mt-3">© 2025 Mark Evans aka Interchained ⚡ — All Rights Reserved</p>
+  <!-- Contact -->
+  <footer id="contact" class="py-5">
+    <div class="container container-narrow">
+      <div class="p-4 card-glass d-flex flex-column flex-md-row justify-content-between align-items-start gap-3">
+        <div>
+          <h2 class="h4 mb-2">Contact</h2>
+          <div class="muted">Open to internships, junior roles, and collaborations.</div>
+        </div>
+        <div class="d-flex gap-2">
+          <a class="btn btn-neon" href="mailto:interchained@email.com">Email</a>
+          <a class="btn btn-outline-soft" href="https://github.com/interchained/interchained" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btn btn-outline-soft" href="https://linkedin.com/in/globalvapor" target="_blank" rel="noreferrer">LinkedIn</a>
+        </div>
+      </div>
+      <div class="text-center muted small mt-4">© 2026 Mark Evans</div>
+    </div>
   </footer>
 
-  <!-- Bootstrap + GSAP -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-
-  <script>
-  // Hero animations
-  gsap.from(".hero-content h1", { y: -80, opacity: 0, duration: 1.5, ease: "power4.out", filter: "blur(8px)" });
-  gsap.from(".hero-content p", { y: 40, opacity: 0, duration: 1.2, delay: 0.5, ease: "power2.out" });
-    gsap.from(".btn-hero", { 
-    scale: 0.8, 
-    opacity: 0, 
-    duration: 1, 
-    delay: 1, 
-    ease: "elastic.out(1,0.5)" 
-    });
-
-  // Background cyberpunk rain
-  const canvas = document.getElementById("bgCanvas");
-  const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  const letters = "0xITC⚡";
-  const fontSize = 16;
-  const columns = canvas.width / fontSize;
-  let drops = Array.from({ length: columns }).fill(1);
-
-  function draw() {
-    ctx.fillStyle = "rgba(10, 15, 26, 0.08)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#0ff";
-    ctx.font = fontSize + "px monospace";
-    drops.forEach((y, x) => {
-      const text = letters[Math.floor(Math.random() * letters.length)];
-      ctx.fillText(text, x * fontSize, y * fontSize);
-      if (y * fontSize > canvas.height && Math.random() > 0.975) drops[x] = 0;
-      drops[x]++;
-    });
-  }
-  setInterval(draw, 50);
-
-  window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  });
-  </script>
 </body>
 </html>
